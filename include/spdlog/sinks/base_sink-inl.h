@@ -25,8 +25,13 @@ SPDLOG_INLINE spdlog::sinks::base_sink<Mutex>::base_sink(std::unique_ptr<spdlog:
 template<typename Mutex>
 void SPDLOG_INLINE spdlog::sinks::base_sink<Mutex>::log(const details::log_msg &msg)
 {
+    std::cout << " +-> base_sink<Mutex>::log()" << std::endl;
+    std::string my_str(msg.payload.data(), msg.payload.size());
+    std::cout << " ==== message to be logged ====> " << my_str << std::endl;
+    std::cout << " +-> base_sink<Mutex>::log()" << std::endl;
     std::lock_guard<Mutex> lock(mutex_);
     sink_it_(msg);
+    std::cout << " |\n +-> log() done" << std::endl;
 }
 
 template<typename Mutex>
